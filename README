@@ -1,0 +1,16 @@
+README
+
+v2 : 
+ - correction nb jours consecutifs (dans v1 3j consec = 2*2j consec, dans v2 3j consec = 2j consec + 1j seul)
+ - documentation
+ - amélioration affichage : différencie repas que pour le midi
+ - affichage historique du carnet
+ - on peut enregistrer un fichier protocole/carnet à partir de l'objet correspondant
+
+TODO
+
+PRINTER : classe pour enregistrer Protocole dans un fichier
+
+Ajouter glycémie une par une en ligne de commande. Concat au fichier
+
+Faire une interface graphique
