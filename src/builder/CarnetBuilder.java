@@ -28,10 +28,12 @@ public class CarnetBuilder extends Builder<Carnet> {
 		this.result = new Carnet(protocole);
 		for(int i=1 ; i<lignes.size() ; i++) {
 			String ligne = lignes.get(i);
+			//System.out.println(ligne);
 			if(ligne.startsWith("DEBUT ")) {
-				if(this.parenthesage.size() != 0)
+				if(this.parenthesage.size() != 0) {
+					//System.out.println(this.parenthesage);
 					throw new Exception("mauvais parenthesage");
-				else
+				}else
 					this.parenthesage.push(ligne.split("DEBUT ")[1]);
 			}else {
 				if(ligne.startsWith("FIN ")) {

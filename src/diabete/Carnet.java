@@ -145,12 +145,17 @@ public class Carnet {
 			res += "Journée " + i + " :\n";
 			for(Periode periode : journee) {
 				res += "\t" + periode.getArticleDefini() + " " + periode.getDescription() + " : ";
-				g = this.carnetDeGlycemie.get(periode).get(i-1);
-				if(g != null)
-					res += "Votre glycémie était de " + g.toString();
-				else
-					res += "Vous n'aviez pas pris votre glycémie";
-				res += ".\n";
+				//System.out.println(this.carnetDeGlycemie + " " + periode.getDescription() + " " + (i-1));
+				try{
+					g = this.carnetDeGlycemie.get(periode).get(i-1);
+					if(g != null)
+						res += "Votre glycémie était de " + g.toString();
+					else
+						res += "Vous n'aviez pas pris votre glycémie";
+					res += ".\n";
+				}catch(IndexOutOfBoundsException e) {
+					res += "Vous n'aviez pas pris votre glycémie.\n";
+				}
 			}
 			res += "\n";
 		}

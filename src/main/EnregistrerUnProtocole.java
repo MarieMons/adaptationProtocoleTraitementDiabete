@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import builder.CarnetBuilder;
-import builder.CarnetPrinter;
 import builder.Director;
 import builder.ProtocoleBuilder;
 import builder.ProtocolePrinter;
