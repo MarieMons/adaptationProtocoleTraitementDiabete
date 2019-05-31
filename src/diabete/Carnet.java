@@ -50,11 +50,14 @@ public class Carnet {
 	private void adapte(Surveillance surveillance) {
 		Periode periode = surveillance.getaSurveiller();
 		ArrayList<Glycemie> lesGlycemies = this.carnetDeGlycemie.get(periode);
-		if(this.carnetDeGlycemie.containsKey(periode))
+		if(this.carnetDeGlycemie.containsKey(periode)) {
+			//System.out.println("ADAPTE : " + periode.getDescription() + " à partir de " + this.carnetDeGlycemie_indiceDerniereAdaptation.get(periode));
 			if(surveillance.aModifier(lesGlycemies, this.carnetDeGlycemie_indiceDerniereAdaptation.get(periode))) {
+				//System.out.println("OUI ADAPTE");
 				this.protocoleASuivre.modification(surveillance.getImpactee(), surveillance.getDescriptionPiqure(), surveillance.getModificationEnUnites(), surveillance.isLongTerme_courtTerme());
 				this.carnetDeGlycemie_indiceDerniereAdaptation.put(periode, lesGlycemies.size());
 			}
+		}
 	}
 
 	/**

@@ -91,46 +91,74 @@ public class Surveillance {
 	 * @param historiqueGlycemie, liste des glycémies pour une période donnée
 	 * @return true si pendant un minimum de nombre de jours consécutifs 
 	 */
-	public boolean aModifier(ArrayList<Glycemie> historiqueGlycemie, Integer indiceDebut) {
+	public boolean aModifier(ArrayList<Glycemie> historiqueGlycemie, int indiceDebut) {
 		int nbGlycTot = historiqueGlycemie.size();
 		int nbGlyc = nbGlycTot - indiceDebut;
 		if(this.nombreDeJoursConsecutifs > nbGlyc)
 			return false;
 		else {
+			//System.out.println(nbGlycTot + " " + nbGlyc + " " + indiceDebut);
+			//System.out.println(this.seuil + " " + this.seuil2 + " " + this.modificationEnUnites);
+			int doitModifier = 0;
 			if(this.seuil2 == -1) {
 				if(this.modificationEnUnites > 0) {
 					for(int i=indiceDebut ; i<nbGlycTot ; i++) {
 						Glycemie g = historiqueGlycemie.get(i);
-						if(g == null)
+						//System.out.println(i + " " + g.getValeur());
+						/*if(g == null)
 							return false;
 						else
 							if(g.getValeur() < this.getSeuil())
-								return false;
+								return false;*/
+						if(g != null && g.getValeur() > this.getSeuil()) {
+							doitModifier++;
+							if(doitModifier >= this.nombreDeJoursConsecutifs)
+								return true;
+						}else {
+							doitModifier = 0;
+						}
 					}
 				}else {
 					for(int i=indiceDebut ; i<nbGlycTot ; i++) {
 						Glycemie g = historiqueGlycemie.get(i);
-						if(g == null)
+						//System.out.println(i + " " + g.getValeur());
+						/*if(g == null)
 							return false;
 						else
 							if(g.getValeur() > this.getSeuil())
-								return false;
+								return false;*/
+						if(g != null && g.getValeur() < this.getSeuil()) {
+							doitModifier++;
+							if(doitModifier >= this.nombreDeJoursConsecutifs)
+								return true;
+						}else {
+							doitModifier = 0;
+						}
 					}
 				}
 			}else {
 				for(int i=indiceDebut ; i<nbGlycTot ; i++) {
 					Glycemie g = historiqueGlycemie.get(i);
-					if(g == null)
+					//System.out.println(i + " " + g.getValeur());
+					/*if(g == null)
 						return false;
 					else {
 						float valeur = g.getValeur();
 						if(this.seuil >= valeur || valeur >= this.seuil2)
 							return false;
+					}*/
+					float valeur = g.getValeur();
+					if(g != null && (this.seuil < valeur && valeur < this.seuil2)) {
+						doitModifier++;
+						if(doitModifier >= this.nombreDeJoursConsecutifs)
+							return true;
+					}else {
+						doitModifier = 0;
 					}
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 
 	/**
